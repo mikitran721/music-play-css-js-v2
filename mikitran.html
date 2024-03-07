@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test code</title>
+    <style>
+      .song {
+        height: 20px;
+        width: 100%;
+        background: burlywood;
+        position: relative;
+      }
+      .song::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="song">Song</div>
+  </body>
+</html>
