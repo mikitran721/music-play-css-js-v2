@@ -97,7 +97,7 @@ mainAudio.addEventListener("timeupdate", (e) => {
   if (currentSec < 10) {
     currentSec = `0${currentSec}`;
   }
-  musicCurrentTime.innerText = `${currentSec}:${currentMin}`;
+  musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
 });
 
 // update playing song current time according to the progress bar width
@@ -111,3 +111,49 @@ progressArea.addEventListener("click", (e) => {
 });
 
 // Work with: repeat, shuffle song according to the icon
+const repeatBtn = wrapper.querySelector("#repeat-plist");
+repeatBtn.addEventListener("click", () => {
+  let getText = repeatBtn.innerText;
+  //do different changes on different icon click using switch
+  switch (getText) {
+    case "repeat": //if this icon is repeat
+      repeatBtn.innerText = "repeat_one";
+      repeatBtn.setAttribute("title", "Song looped");
+      break;
+    case "repeat_one":
+      repeatBtn.innerText = "shuffle";
+      repeatBtn.setAttribute("title", "Playback shuffle");
+      break;
+    case "shuffle":
+      repeatBtn.innerText = "repeat";
+      repeatBtn.setAttribute("title", "Playlist looped");
+      break;
+  }
+});
+
+//start loop status after the song ended
+mainAudio.addEventListener("ended", () => {
+  //according to the icon
+  let getText = repeatBtn.innerText;
+  switch (getText) {
+    case "repeat": //if this icon is repeat
+      nextMusic();
+      break;
+    case "repeat_one":
+      //change the current playing song current time to 0, it'll play again
+      mainAudio.currentTime = 0;
+      loadMusic(musicIndex);
+      playMusic();
+      break;
+    case "shuffle":
+      // generating random index between the max range of array length
+      let ranIndex = Math.floor(Math.random() * (allMusic.length + 1));
+      do {
+        ranIndex = Math.floor(Math.random() * (allMusic.length + 1));
+      } while (musicIndex == ranIndex);
+      musicIndex = ranIndex;
+      loadMusic(musicIndex);
+      playMusic();
+      break;
+  }
+});
