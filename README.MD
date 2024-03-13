@@ -9,6 +9,7 @@
 # KIẾN THỨC
 
 - `user-select: none` không cho user chọn ký tự
+- using li-index to find which song is currently playing
 
 # ON TAP
 
